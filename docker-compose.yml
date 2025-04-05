@@ -13,8 +13,9 @@ services:
       - ./scripts/db/10-init.sql:/docker-entrypoint-initdb.d/10-init.sql
 
   kafka0:
-    image: apache/kafka:latest
     container_name: kafka0
+    image: apache/kafka:latest
+    restart: on-failure
     environment:
       KAFKA_ENABLE_KRAFT: yes
       KAFKA_NODE_ID: 1

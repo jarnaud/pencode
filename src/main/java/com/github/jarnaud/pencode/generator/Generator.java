@@ -18,11 +18,19 @@ import java.util.Random;
 @Component
 public class Generator {
 
+    private final List<String> words;
+    private final Random random;
+
     /**
-     * The dictionary of all valid words in Scrabble game.
+     * Constructor.
+     *
+     * @param dictionary the dictionary of all valid words in Scrabble game.
      */
-    @Value("classpath:data/scrabble.txt")
-    private Resource dictionary;
+    public Generator(@Value("classpath:data/scrabble.txt") Resource dictionary) throws IOException {
+        this.words = Files.readAllLines(dictionary.getFile().toPath());
+        this.random = new Random();
+        log.debug("Loaded dictionary with {} words.", words.size());
+    }
 
     /**
      * Generate a sequence of words from a dictionary.
@@ -30,9 +38,7 @@ public class Generator {
      * @param nbWords the number of words.
      * @return the sequence of words.
      */
-    public String generateWords(int nbWords) throws IOException {
-        List<String> words = Files.readAllLines(dictionary.getFile().toPath());
-        Random random = new Random();
+    public String generateWords(int nbWords) {
 
         List<String> res = new ArrayList<>();
         for (int i = 0; i < nbWords; i++) {
@@ -40,7 +46,7 @@ public class Generator {
             String word = words.get(index);
             res.add(word);
         }
-        log.debug("Generated: {}", String.join(" ", res));
+        log.trace("Generated: {}", String.join(" ", res));
         return String.join(" ", res);
     }
 }
