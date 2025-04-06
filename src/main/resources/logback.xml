@@ -16,6 +16,8 @@
 
     <logger name="com.github.jarnaud.pencode" level="DEBUG"/>
     <logger name="com.github.jarnaud.pencode.extractor" level="DEBUG"/>
+    <logger name="org.apache.kafka.clients.producer" level="WARN"/>
+    <logger name="org.apache.kafka.common.metrics" level="WARN"/>
 
     <root level="error">
         <appender-ref ref="CONSOLE"/>

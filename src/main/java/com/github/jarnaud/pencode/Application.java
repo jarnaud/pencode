@@ -1,5 +1,6 @@
 package com.github.jarnaud.pencode;
 
+import com.github.jarnaud.pencode.extractor.Extractor;
 import com.github.jarnaud.pencode.generator.Generator;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,9 @@ public class Application implements CommandLineRunner {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @Autowired
+    private Extractor extractor;
+
     public static void main(String[] args) {
         SpringApplication.run(Application.class, args).close();
     }
@@ -37,6 +41,20 @@ public class Application implements CommandLineRunner {
     public void run(String... args) throws Exception {
         log.info("Starting Pencode");
 
+
+        //generateRecords();
+
+
+        // Extract data from DB and sent to Kafka.
+        extractor.extract();
+
+
+        // TODO
+
+        log.info("Exiting.");
+    }
+
+    private void generateRecords() {
         // Generate records.
         List<String> content = new ArrayList<>(nbRecords);
         for (int i = 0; i < nbRecords; i++) {
@@ -48,10 +66,6 @@ public class Application implements CommandLineRunner {
         jdbcTemplate.batchUpdate("INSERT INTO Records (content) VALUES (?)", content, 100, (ps, s) -> {
             ps.setString(1, s);
         });
-
-        // TODO
-
-        log.info("Exiting.");
     }
 
 }
