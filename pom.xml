@@ -95,11 +95,11 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.maven.surefire}</version>
                 <configuration>
-<!--                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>-->
-                    <argLine>
-                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${version.mockito}/mockito-core-${version.mockito}.jar
-                        -Xshare:off
-                    </argLine>
+                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
+<!--                    <argLine>-->
+<!--                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${version.mockito}/mockito-core-${version.mockito}.jar-->
+<!--                        -Xshare:off-->
+<!--                    </argLine>-->
                 </configuration>
             </plugin>
         </plugins>
