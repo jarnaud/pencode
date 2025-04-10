@@ -18,6 +18,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingDeque;
 
+/**
+ * Component in charge of reading the messages to sign from the Kafka topic,
+ * compute the signatures and insert them in the DB.
+ */
 @Slf4j
 @Component
 public class Consumer {
@@ -34,6 +38,9 @@ public class Consumer {
     @Value("${pencode.consumer.threads}")
     private int nbThreads;
 
+    @Value("${pencode.consumer.poll.duration}")
+    private int pollDuration;
+
     @Autowired
     private DbClient dbClient;
 
@@ -46,7 +53,6 @@ public class Consumer {
 
         log.info("Processing messages");
 
-        // TODO param for multithreading.
         ExecutorService executor = Executors.newFixedThreadPool(nbThreads);
         try (executor) {
 
@@ -67,7 +73,7 @@ public class Consumer {
                 while (hasData) {
 
                     log.debug("polling for records...");
-                    ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(10_000));
+                    ConsumerRecords<String, String> records = consumer.poll(Duration.ofMillis(pollDuration));
                     if (records.isEmpty()) {
                         hasData = false;
                     } else {

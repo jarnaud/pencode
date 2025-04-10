@@ -10,7 +10,6 @@ import org.apache.kafka.clients.producer.KafkaProducer;
 import org.apache.kafka.clients.producer.ProducerConfig;
 import org.apache.kafka.clients.producer.ProducerRecord;
 import org.apache.kafka.common.serialization.StringSerializer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -24,16 +23,19 @@ import java.util.Properties;
 @Component
 public class Producer {
 
-    @Value("${pencode.kafka.bootstrap:localhost:9090}")
-    private String kafkaBootstrap;
-
-    @Value("${pencode.kafka.topic.name}")
-    private String topicName;
-
-    @Autowired
-    private DbClient dbClient;
+    private final String kafkaBootstrap;
+    private final String topicName;
+    private final DbClient dbClient;
 
     private static final ObjectMapper MAPPER = new ObjectMapper();
+
+    public Producer(@Value("${pencode.kafka.bootstrap:localhost:9090}") String kafkaBootstrap,
+                    @Value("${pencode.kafka.topic.name}") String topicName,
+                    DbClient dbClient) {
+        this.kafkaBootstrap = kafkaBootstrap;
+        this.topicName = topicName;
+        this.dbClient = dbClient;
+    }
 
     public void extract() {
 
@@ -54,7 +56,6 @@ public class Producer {
             }
             producer.flush();
         }
-
     }
 
     private String createMessage(RecordEntry rec) {

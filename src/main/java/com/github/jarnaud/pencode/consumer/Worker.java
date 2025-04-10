@@ -61,7 +61,7 @@ public class Worker implements Runnable {
             return;
         }
 
-        log.debug("Worker with key {} will process {} records", key.id(), records.count());
+        log.debug("[worker {}] will process {} records", key.id(), records.count());
 
         // Sign records.
         Map<Long, String> signatures = new HashMap<>();
