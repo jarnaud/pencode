@@ -2,11 +2,12 @@
 CREATE TABLE IF NOT EXISTS Records (
     id SERIAL PRIMARY KEY,
     content varchar NOT NULL,
-    signature BYTEA DEFAULT NULL
+    signature varchar DEFAULT NULL -- base64.
 );
 
 -- Encryption keys.
 CREATE TABLE IF NOT EXISTS Keys (
     id SERIAL PRIMARY KEY,
-    content BYTEA NOT NULL
+    privateKey varchar NOT NULL, -- base64.
+    publicKey varchar NOT NULL -- base64.
 );

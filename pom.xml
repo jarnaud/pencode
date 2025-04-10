@@ -13,11 +13,13 @@
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
-        <version.spring.boot>3.4.3</version.spring.boot>
+
         <version.kafka>3.9.0</version.kafka>
         <version.logback>1.5.16</version.logback>
-        <version.mockito>5.17.0</version.mockito>
         <version.maven.surefire>3.5.3</version.maven.surefire>
+        <version.mockito>5.17.0</version.mockito>
+        <version.postgresql>42.7.5</version.postgresql>
+        <version.spring.boot>3.4.3</version.spring.boot>
     </properties>
 
     <dependencies>
@@ -55,8 +57,16 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
-            <version>42.7.5</version>
+            <version>${version.postgresql}</version>
         </dependency>
+
+        <dependency>
+            <groupId>com.google.guava</groupId>
+            <artifactId>guava</artifactId>
+            <version>33.4.6-jre</version>
+        </dependency>
+
+<!--        Test scope-->
 
         <dependency>
             <groupId>org.springframework.boot</groupId>

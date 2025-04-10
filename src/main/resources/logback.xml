@@ -4,7 +4,7 @@
         <encoder class="ch.qos.logback.core.encoder.LayoutWrappingEncoder">
             <layout class="ch.qos.logback.classic.PatternLayout">
                 <Pattern>
-                    🐄  %d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n
+                    %d{yyyy-MM-dd HH:mm:ss} [%t] %-5level %logger{36} - %msg%n
                 </Pattern>
             </layout>
         </encoder>
@@ -16,7 +16,7 @@
 
     <logger name="com.github.jarnaud.pencode" level="DEBUG"/>
     <logger name="com.github.jarnaud.pencode.extractor" level="DEBUG"/>
-    <logger name="org.apache.kafka.clients.producer" level="WARN"/>
+    <logger name="org.apache.kafka.clients" level="WARN"/>
     <logger name="org.apache.kafka.common.metrics" level="WARN"/>
 
     <root level="error">

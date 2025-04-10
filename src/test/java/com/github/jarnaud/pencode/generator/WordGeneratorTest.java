@@ -5,19 +5,17 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
-import java.io.IOException;
-
-@SpringBootTest
-public class GeneratorTest {
+@SpringBootTest(classes = {WordGenerator.class})
+public class WordGeneratorTest {
 
     @Autowired
-    private Generator generator;
+    private WordGenerator wordGenerator;
 
     @Test
-    public void generateWords() throws IOException {
-        String result = generator.generateWords(3);
+    public void generateWords() {
+        String result = wordGenerator.generateWords();
         Assertions.assertNotNull(result);
         Assertions.assertFalse(result.isBlank());
-        Assertions.assertEquals(3, result.split(" ").length);
+        Assertions.assertEquals(5, result.split(" ").length);
     }
 }

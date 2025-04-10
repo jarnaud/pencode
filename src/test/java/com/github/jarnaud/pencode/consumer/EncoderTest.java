@@ -1,23 +1,28 @@
-package com.github.jarnaud.pencode.encoder;
+package com.github.jarnaud.pencode.consumer;
 
+import com.github.jarnaud.pencode.generator.Generator;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import javax.crypto.Cipher;
 import java.nio.charset.StandardCharsets;
 import java.security.KeyPair;
 
-@SpringBootTest(classes = {Encoder.class})
 public class EncoderTest {
 
-    @Autowired
-    private Encoder encoder;
+    @Test
+    public void testSignatureProcess() {
+        KeyPair kp = Generator.generateKeyPair();
+        String signature = Encoder.sign("mon message", kp.getPrivate());
+        Assertions.assertNotNull(signature);
+
+        boolean res = Encoder.verify("mon message", signature, kp.getPublic());
+        Assertions.assertTrue(res);
+    }
 
     @Test
     public void testEncodingProcess() throws Exception {
-        KeyPair pair = encoder.generateKeyPair();
+        KeyPair pair = Generator.generateKeyPair();
 
         // Encode.
         Cipher cipher = Cipher.getInstance("RSA");
