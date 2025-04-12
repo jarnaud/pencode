@@ -29,7 +29,7 @@ public class ProducerTest {
         when(dbClient.getUnsignedRecords()).thenReturn(List.of(
                 new RecordEntry(101L, "aaa", null),
                 new RecordEntry(102L, "bbb", null),
-                new RecordEntry(103L, "ccc", "xyz")
+                new RecordEntry(103L, "ccc", null)
         ));
         producer.extract();
         verify(dbClient, times(1)).getUnsignedRecords();
