@@ -10,7 +10,6 @@ import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.apache.kafka.clients.consumer.ConsumerRecords;
-import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.security.KeyFactory;
 import java.security.PrivateKey;

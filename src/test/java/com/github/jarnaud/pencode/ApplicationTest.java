@@ -3,14 +3,12 @@ package com.github.jarnaud.pencode;
 import com.github.jarnaud.pencode.db.DbClient;
 import com.github.jarnaud.pencode.model.RecordEntry;
 import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.util.List;
 
-@Disabled
 @SpringBootTest
 public class ApplicationTest {
 
