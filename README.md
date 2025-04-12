@@ -12,6 +12,11 @@ This project generate a large amount of records in a database, and generate sign
 
 ## Usage
 
+### Prerequisites
+
+- Java 21+
+- Docker
+
 ### Setup
 
 Start Docker on your machine, then use the docker-compose file to start the required components (`docker compose up`).
