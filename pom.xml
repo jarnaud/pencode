@@ -14,12 +14,13 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
 
+        <version.jacoco>0.8.13</version.jacoco>
         <version.kafka>3.9.0</version.kafka>
         <version.logback>1.5.16</version.logback>
         <version.maven.surefire>3.5.3</version.maven.surefire>
         <version.mockito>5.17.0</version.mockito>
         <version.postgresql>42.7.5</version.postgresql>
-        <version.spring.boot>3.4.3</version.spring.boot>
+        <version.spring.boot>3.4.4</version.spring.boot>
     </properties>
 
     <dependencies>
@@ -76,20 +77,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-subclass</artifactId>
-            <version>${version.mockito}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!--        <dependency>-->
-        <!--            <groupId>org.junit.jupiter</groupId>-->
-        <!--            <artifactId>junit-jupiter-api</artifactId>-->
-        <!--            <version>5.12.1</version>-->
-        <!--            <scope>test</scope>-->
-        <!--        </dependency>-->
-
-        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.36</version>
@@ -102,15 +89,49 @@
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-dependency-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>properties</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>${version.maven.surefire}</version>
                 <configuration>
-                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>
-<!--                    <argLine>-->
-<!--                        -javaagent:${settings.localRepository}/org/mockito/mockito-core/${version.mockito}/mockito-core-${version.mockito}.jar-->
-<!--                        -Xshare:off-->
-<!--                    </argLine>-->
+                    <!--suppress UnresolvedMavenProperty -->
+                    <argLine>@{argLine} -javaagent:${org.mockito:mockito-core:jar}</argLine>
+<!--                    <argLine>-XX:+EnableDynamicAgentLoading</argLine>-->
                 </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.jacoco</groupId>
+                <artifactId>jacoco-maven-plugin</artifactId>
+                <version>${version.jacoco}</version>
+                <configuration>
+                    <excludes>
+                        <exclude>com/github/jarnaud/pencode/Application.class</exclude>
+                        <exclude>com/github/jarnaud/pencode/model/*</exclude>
+                    </excludes>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>prepare-agent</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>report</id>
+                        <phase>test</phase>
+                        <goals>
+                            <goal>report</goal>
+                        </goals>
+                    </execution>
+                </executions>
             </plugin>
         </plugins>
     </build>
