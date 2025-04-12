@@ -24,3 +24,7 @@ You should see the following containers:
 ### Test
 
 Launch the main test (`ApplicationTest`) to run the app.
+
+## Architecture
+
+![Pencode components](/doc/pencode.png)
