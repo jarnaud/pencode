@@ -4,6 +4,7 @@
 
 [![Java CI with Maven](https://github.com/jarnaud/pencode/actions/workflows/maven.yml/badge.svg?branch=master)](https://github.com/jarnaud/pencode/actions/workflows/maven.yml)
 
+[![codecov](https://codecov.io/github/jarnaud/pencode/graph/badge.svg?token=)](https://codecov.io/github/jarnaud/pencode)
 ## Description
 
 This project generate a large amount of records in a database, and generate signatures for these messages in parallel.
